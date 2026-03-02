@@ -1,14 +1,16 @@
 import readlineSync from 'readline-sync'
 import { hello } from './cli.js'
+import { rounds } from './config/game-settings.js'
 
-export const engine = (questionsAnswers, gameRules) => {
+export const engine = (gameRules, funcGenerateRound) => {
   const userName = hello()
 
   console.log(gameRules)
 
   let isWinner = true
 
-  for (const [question, correctAnswer] of questionsAnswers) {
+  for (let i = 0; i < rounds; i += 1) {
+    const [question, correctAnswer] = funcGenerateRound()
     console.log(`Question: ${question}`)
     const userAnswer = readlineSync.question('Your answer: ')
 

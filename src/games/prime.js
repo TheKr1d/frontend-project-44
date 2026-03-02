@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import { engine } from '../index.js'
-import { rounds } from '../config/game-settings.js'
+
+export const gameRules = 'Answer "yes" if given number is prime. Otherwise answer "no".'
 
 const isPrime = (num) => {
   if (num === 2) {
@@ -19,19 +19,9 @@ const isPrime = (num) => {
   return true
 }
 
-export default () => {
-  const gameRules = 'Answer "yes" if given number is prime. Otherwise answer "no".'
-  const questionsAnswers = []
+export const generateRound = () => {
+  const randomNum = _.random(1, 99)
+  const correctAnswer = isPrime(randomNum) ? 'yes' : 'no'
 
-  let i = 0
-
-  while (i < rounds) {
-    const randomNum = _.random(1, 99)
-    const correctAnswer = isPrime(randomNum) ? 'yes' : 'no'
-
-    questionsAnswers.push([randomNum, correctAnswer])
-    i += 1
-  }
-
-  engine(questionsAnswers, gameRules)
+  return [randomNum, correctAnswer]
 }

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
-import run from '../../src/games/prime.js'
+import { gameRules, generateRound } from '../../src/games/prime.js'
+import { engine } from '../../src/index.js'
 
-run()
+engine(gameRules, generateRound)

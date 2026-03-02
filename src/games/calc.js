@@ -1,6 +1,6 @@
 import _ from 'lodash'
-import { engine } from '../index.js'
-import { rounds } from '../config/game-settings.js'
+
+export const gameRules = 'What is the result of the expression?'
 
 const calculate = (numberOne, numberTwo, operator) => {
   switch (operator) {
@@ -15,24 +15,15 @@ const calculate = (numberOne, numberTwo, operator) => {
   }
 }
 
-export default () => {
-  const gameRules = 'What is the result of the expression?'
-  const questionsAnswers = []
-
+export const generateRound = () => {
   const operators = ['+', '-', '*']
 
-  let i = 0
-  while (i < rounds) {
-    const randomNumOne = _.random(1, 9)
-    const randomNumTwo = _.random(1, 9)
-    const randomOperators = operators[_.random(0, 2)]
+  const randomNumOne = _.random(1, 9)
+  const randomNumTwo = _.random(1, 9)
+  const randomOperators = operators[_.random(0, operators.length - 1)]
 
-    const expression = `${randomNumOne} ${randomOperators} ${randomNumTwo}`
-    const correctAnswer = String(calculate(randomNumOne, randomNumTwo, randomOperators))
+  const expression = `${randomNumOne} ${randomOperators} ${randomNumTwo}`
+  const correctAnswer = String(calculate(randomNumOne, randomNumTwo, randomOperators))
 
-    questionsAnswers.push([expression, correctAnswer])
-    i += 1
-  }
-
-  engine(questionsAnswers, gameRules)
+  return [expression, correctAnswer]
 }
